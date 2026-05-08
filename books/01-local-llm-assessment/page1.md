@@ -1,7 +1,7 @@
 ---
 title: "技術概要"
 ---
-**【GPU】**
+#　GPU
 - NVIDIA GeForce RTX 4060 Laptop
 - 標準メモリ構成: 8 GB
 
@@ -14,26 +14,26 @@ title: "技術概要"
 |12B〜14B (Mistral NeMo等)|Q4_K_M|ギリギリ|VRAMをほぼ使い切ります。他のアプリを開くと速度が落ちます。|
 |20B〜|4-bit以上|低速|VRAMから溢れた分がメインメモリ（RAM）に回るため、極端に遅くなります。|
 
-**【ローカルLLMモデル】**
+# ローカルLLMモデル
 - gemma3:4b
   - Googleが2025年後半にリリース
   - 軽量で高性能なローカルLLM（大規模言語モデル）
   - ローカルPC環境で高速かつ多機能に動作するモデル
 
-**【API:LLMモデル】**
+# API:LLMモデル
 - Gemini 2.5 Flash
 
 > 参考：上記2つのモデルの比較
 
 | 項目 | Gemini 2.5 Flash | Gemma 3 4B |
 |------|-----------------|------------|
-| 提供形態 | クラウドAPI（有料） | オープンウェイト（無料・ローカル可） |
+| 提供形態 | クラウドAPI（有料・無料枠あり） | オープンウェイト（無料・ローカル可） |
 | コンテキスト長 | **100万トークン** | 12.8万トークン |
 | 出力上限 | 65,000トークン | 約8,192トークン |
 | 学習データ | 2025年1月まで | 2024年8月まで |
 | マルチモーダル | テキスト・画像・動画・音声 | テキスト・画像 |
 
-**【python: LangChain関連のライブラリ】**
+# python: LangChain関連のライブラリ
 
 - 今回使用するLangChain関連は下記の通りです。
 
@@ -49,3 +49,18 @@ title: "技術概要"
 - LangChain関連以外のライブラリに関して各々インストールしてください。
 :::
 
+# python: 共通関数
+
+以下の共通の関数を使用します。
+
+https://github.com/sea-yassan33/output_creativity/blob/main/python/03_local_llm_assessment/common_func.py
+
+:::message
+- common_func.py内の関数を使用する際は各々解説をします。
+:::
+
+# トピック
+
+GPUメモリの選定やOllamaのインストール方法は下記の記事を参考してください。
+
+https://zenn.dev/sea_yassan_dev/articles/local_llm_202605
