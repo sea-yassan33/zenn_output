@@ -2,7 +2,7 @@
 title: "【2026/05】ローカルLLMブラッシュアップ"
 emoji: "📚"
 type: "tech"
-topics: ["rocalLLM", "Ollama"]
+topics: ["LocalLLM", "Ollama"]
 published: true
 ---
 
