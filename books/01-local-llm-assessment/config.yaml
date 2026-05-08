@@ -1,0 +1,8 @@
+title: "ローカルLLMの評価について"
+summary: "CallbackeHandlerを使用してLLMの呼び出し管理やトークン管理の実装方法について紹介します。またLLMの生成物に対して評価方法について紹介します。"
+topics: ["markdown", "zenn", "react"]
+published: false
+price: 0
+chapters:
+  - page0
+  - page1
