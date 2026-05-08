@@ -1,9 +1,10 @@
 ---
 title: "【2026/05】ローカルLLMブラッシュアップ"
-emoji: "📚"
+emoji: "💻"
 type: "tech"
 topics: ["LocalLLM", "Ollama"]
 published: true
+canonical_url: "https://qiita.com/sea_news_yass/items/fb71d0026d8befacddd4"
 ---
 
 # 概要
