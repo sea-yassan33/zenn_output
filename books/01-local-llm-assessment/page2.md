@@ -56,7 +56,7 @@ class OllamaMetadataCallback(BaseCallbackHandler):
   def on_llm_start(self, serialized, prompts, **kwargs):
     if self.call_count == 0:
       self.start_time = time.time()　#←開始時間をセット
-    self.str_count += len(prompts[0]) #←LLMモデルが呼ばれた回数をカウント
+    self.str_count += len(prompts[0]) 
   ## LLMの処理が完了時の処理
   def on_llm_end(self, response, **kwargs):
     self.call_count += 1

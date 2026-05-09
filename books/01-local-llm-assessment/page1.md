@@ -1,7 +1,8 @@
 ---
 title: "技術概要"
 ---
-#　GPU
+
+# GPU:Graphics Processing Unit
 - NVIDIA GeForce RTX 4060 Laptop
 - 標準メモリ構成: 8 GB
 
