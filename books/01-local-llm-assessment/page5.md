@@ -4,14 +4,14 @@ title: "2次評価"
 
 # 2次評価で使用する評価について
 
-## セマンティック評価（Semantic Evaluation）について
+## セマンティック評価（Semantic Evaluation）
 
 **セマンティック評価**とはその語句が持つ「意味」や「文脈（コンテクスト）」を解釈・分析をし、関連性を評価する手法です。
 
-Embeddings（エンベディング/埋め込み表現）を使用して文脈の類似度を評価します。
+Embeddingsを使用して文脈の類似度を評価します。
 
 :::message
-**Embeddings**とは
+**Embeddings（エンベディング/埋め込み表現）**とは
 単語、文章をその「意味」を捉えた多次元の数値ベクトルに変換する技術です。
 :::
 
@@ -61,13 +61,13 @@ meta_map = {}
 
 # STEP1:生成された概要を準備
 
-- 生成された概要と評価用の概要を準備します。
+- 生成された概要と期待する概要（評価用）を準備します。
 
 ```py
 ## 生成された概要
 with open("./data/test03-summary.md", "r", encoding="utf-8") as f:
   final_summary = f.read()
-# 論文の概要
+# 期待する概要
 with open("./data/paper01_oberveiw.md", "r", encoding="utf-8") as f:
   expected_text = f.read()
 ```
@@ -78,16 +78,16 @@ with open("./data/paper01_oberveiw.md", "r", encoding="utf-8") as f:
 # from langchain_huggingface import HuggingFaceEmbeddings
 # from langchain_classic.evaluation import load_evaluator, EmbeddingDistance
 
-# Embeddingsのモデルをセット
+# Embeddingsモデルをセット
 embeddings = HuggingFaceEmbeddings(
   model_name="sonoisa/sentence-bert-base-ja-en-mean-tokens-v2"
 )
 
-# 評価器のセットアップ
+# 評価器をセット
 evaluator = load_evaluator(
-    "embedding_distance",    # Embeddingベースの類似度評価
-    embeddings=embeddings,   # ローカルEmbeddingをセット
-    distance_metric=EmbeddingDistance.COSINE  # 自然言語に最適
+  "embedding_distance",    # Embeddingベースの類似度評価
+  embeddings=embeddings,   # ローカルEmbeddingをセット
+  distance_metric=EmbeddingDistance.COSINE  # 自然言語に最適
 )
 ```
 
@@ -97,7 +97,11 @@ evaluator = load_evaluator(
 |:----|:----|
 |embedding_distance|Embeddingベースの類似度評価|
 
-**※第３評価時もload_evaluatorを使用しますので、その際に第1引数に指定する値について説明します※**
+:::message
+load_evaluatorの第1引数の指定する値について
+第３評価時もload_evaluatorを使用しますのでその際に第1引数に指定する値について説明します。
+セマンティック評価では「embedding_distance」を使用します。
+:::
 
 > load_evaluatorの第3引数（distance_metric）について
 
@@ -163,14 +167,14 @@ similarity = evaluation_analysis01(res_assesment)
 # STEP4:セマティック評価に対する分析
 
 - セマティック結果より「要改善」と出ましたが、何を改善すべきか分析する必要があります。
-- 今回は第2のLLM（gemini-2.5-flash）で評価を分析してもらいます。
+- 今回は第2のLLM（gemini-2.5-flash）で分析してもらいます。
 
 ## 評価用テンプレートを用意
 
-- 下記の様にテンプレートを作成し、「生成した概要(generated)」・「期待する概要(reference)」・「類似度（similarity）」を渡せるようにします。
+- 「生成した概要(generated)」・「期待する概要(reference)」・「類似度（similarity）」を渡せるようテンプレートを作成します。
 
 ```py
-## 評価用テンプレート
+## 分析用テンプレート
 analysis_prompt = ChatPromptTemplate.from_template("""
 あなたは文章評価の専門家です。
 以下の「生成された概要」と「参照概要」を比較し、
@@ -190,7 +194,7 @@ analysis_prompt = ChatPromptTemplate.from_template("""
 
 ## 評価用Chainの作成
 
-- パイプを用いて「評価用テンプレート」→「モデル」→「出力パーサー」と処理を渡すchainを作成します。
+- パイプを用いて**分析用テンプレート**→**モデル**→**出力パーサー**と処理を渡すchainを作成します。
 
 ```py
 ## 第2のLLMモデルを用意
@@ -206,7 +210,8 @@ chain = analysis_prompt | llm_api_gemini | StrOutputParser()
 ## 第2のLLMによる評価を実行
 
 - ChatGoogleGenerativeAIプロバイダー用のCallbackクラスを準備します。
-- [common_func.py](https://github.com/sea-yassan33/output_creativity/blob/main/python/03_local_llm_assessment/common_func.py)内の「GoogleMetadataCallback」クラス
+
+> [common_func.py](https://github.com/sea-yassan33/output_creativity/blob/main/python/03_local_llm_assessment/common_func.py)内の「GoogleMetadataCallback」クラス
 
 ```py
 # ▼▼▼ GoogleGenerativeAI_Callback_Class ▼▼▼
@@ -315,7 +320,7 @@ class GoogleMetadataCallback(BaseCallbackHandler):
 - Ollama（ChatOllama）とGoogle（ChatGoogleGenerativeAI）ではtoken量を取り出す方法が異なります。
 :::
 
-- 第2のLLM（gemini-2.5-flash）による評価を実行します。
+> 第2のLLM（gemini-2.5-flash）による評価を実行
 
 ```py
 ## Google用のCallbackをセット
@@ -323,9 +328,9 @@ google_callback = GoogleMetadataCallback()
 
 ## LLM（gemini-2.5-flash）で評価を分析を実行
 analysis = chain.invoke({
-  "generated":  final_summary,
-  "reference":  expected_text,
-  "similarity": similarity
+  "generated":  final_summary, # ←生成された概要
+  "reference":  expected_text, # ←期待する概要
+  "similarity": similarity # ←類似度
 },config={"callbacks": [google_callback]})
 
 ## callbackの情報をmap形式で格納
@@ -375,7 +380,7 @@ llm_call2-01
 ===================================
 ```
 
-## 今回LLM呼び出された際のトークン量
+## 2次評価でのトークン量と料金試算
 
 |呼び出し回数|入力トークン|出力トークン|料金(JPY)|
 |:----|:----|:----|:----|

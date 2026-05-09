@@ -12,7 +12,7 @@ title: "管理：CallbackHandler"
 - ストリーミング
 - デバッグ
 - コスト管理
-- BaseCallbackHandlerを使用してカスタマイズが可能
+- BaseCallbackHandlerを使用してカスタマイズ
 
 # メソッドについて
 
@@ -122,8 +122,7 @@ class OllamaMetadataCallback(BaseCallbackHandler):
 下記の様にどのタイミングで管理するかで、Callbackをセットするパターンが異なります。
 
 ```py
-
-# パターン1:LLM呼び出し時に読み込む
+# パターン1:LLM呼び出し時に組み込む
 callback = OllamaMetadataCallback()
 result = chain.invoke(
   {"input_documents": sp_docs}
@@ -140,5 +139,7 @@ llm_api_gemini = ChatGoogleGenerativeAI(
 )
 ```
 
-> 本ドキュメント内ではLLM呼び出し時直前にCallbackをセットします。
-> パターン１を主に使用しますが、時折パターン２を使用します。
+:::message
+本プログラム内ではLLM呼び出し時直前にCallbackをセットします。（パターン1）
+状況によってはパターン2を使用します。
+:::

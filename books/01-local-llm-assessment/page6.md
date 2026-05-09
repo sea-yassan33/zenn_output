@@ -6,9 +6,9 @@ title: "3次評価"
 
 - 3次評価は「LLM-as-a-judge」を使用して評価します。
 
-## LLM-as-a-judgeについて
+## LLM-as-a-judge
 
-人間や従来のプログラムの代わりに、LLM（大規模言語モデル）を使って他のLLMの出力を評価・採点させる手法です
+**LLM-as-a-judge**は人間や従来のプログラムの代わりに、LLM（大規模言語モデル）を使って他のLLMの出力を評価・採点させる手法です
 
 > LangChainを用いた「LLM-as-a-judge(load_evaluator)」使用例
 
@@ -23,7 +23,7 @@ evaluator = load_evaluator(
 )
 
 # 【複数の評価指標を指定するパターン】
-## 評価指標をmap形式で用意する
+## 評価指標をmap形式で用意
 criteria_list = {
   "conciseness":  "概要は簡潔にまとめられているか？",
   "completeness": "重要なポイントが網羅されているか？",
@@ -102,7 +102,11 @@ from langchain_core.output_parsers import StrOutputParser
 
 ```py
 ## model
-llm = ChatOllama(model="gemma3:4b",base_url=os.environ['OLLAM_URL'],temperature=0.0)
+llm = ChatOllama(
+  model="gemma3:4b",
+  base_url=os.environ['OLLAM_URL'],
+  temperature=0.0
+)
 ## 定数
 meta_map = {}
 result_map ={}
@@ -124,7 +128,9 @@ with open("./data/test03-summary.md", "r", encoding="utf-8") as f:
   generated_summary = f.read()
 ```
 
-# STEP2:labeled_criteria評価＜参照テキスト(reference)を用いる＞
+# STEP2:labeled_criteria評価
+
+labeled_criteria評価＜参照テキスト(reference)を用いる＞を実施します。
 
 > load_evaluatorの第1引数の値
 
@@ -198,7 +204,9 @@ result01 = [labeled_result['score'],labeled_result['value'],trans_result]
 result_map["result01"] =result01
 ```
 
-# STEP3:criteria評価＜入力＋予測のみで評価＞
+# STEP3:criteria評価
+
+criteria評価＜入力＋予測のみで評価＞を実施します。
 
 > load_evaluatorの第1引数の値
 
@@ -284,7 +292,9 @@ for i in range(len(result_criteria_list)):
   result_map[map_key] = result_temp
 ```
 
-# STEP4:評価結果の出力とトークン量の確認
+# STEP4:評価結果を出力とトークン量の確認
+
+## 評価結果を出力
 
 > 評価結果（map形式）をDataframeでまとめる
 
@@ -462,7 +472,7 @@ llm_call3-04
 ===================================
 ```
 
-## 今回LLM呼び出された際のトークン量
+## 3次評価でのトークン量と料金試算
 
 |呼び出し回数|入力トークン|出力トークン|料金(JPY)|
 |:----|:----|:----|:----|

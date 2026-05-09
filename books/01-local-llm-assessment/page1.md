@@ -62,6 +62,6 @@ https://github.com/sea-yassan33/output_creativity/blob/main/python/03_local_llm_
 
 # トピック
 
-GPUメモリの選定やOllamaのインストール方法は下記の記事を参考してください。
+> GPUメモリの選定やOllamaのインストール方法は下記の記事を参考してください。
 
 https://zenn.dev/sea_yassan_dev/articles/local_llm_202605

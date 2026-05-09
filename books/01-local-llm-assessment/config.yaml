@@ -1,7 +1,7 @@
 title: "ローカルLLMの評価について"
 summary: "CallbackeHandlerを使用してLLMの呼び出し管理やトークン管理の実装方法について紹介します。またLLMの生成物に対して評価方法について紹介します。"
 topics: ["Python", "LLM", "LangChain", "管理", "評価"]
-published: false
+published: true
 price: 0
 chapters:
   - page0
