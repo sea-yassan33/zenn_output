@@ -156,7 +156,7 @@ meta_map["llm_call01"] = callback
 combined = "\n\n".join(chunk_summaries)
 ```
 
-# STEP4:最終の概要を生成
+# STEP4:要点から概要を生成
 
 - パイプを用いて**概要生成用テンプレート**→**モデル**→**出力パーサー**と処理を渡すchainを作成します。
 
@@ -177,11 +177,11 @@ final_summary = chain02.invoke(
 meta_map["llm_call02"] = callback
 ```
 
-# STEP5:生成コンテンツの出力とトークン量の確認
+# STEP5:生成された概要を出力とトークン量の確認
 
-## 生成コンテンツを出力
+## 生成された概要を出力
 
-- 生成されたコンテンツを次のフェーズ（評価）で使用できるようにMarkDown形式で出力します。
+- 生成された概要を次のフェーズ（評価）で使用できるようにMarkDown形式で出力します。
 - [common_func.py](https://github.com/sea-yassan33/output_creativity/blob/main/python/03_local_llm_assessment/common_func.py)内の「res_output_md」関数を使用して出力します
 
 > common_func.py - res_output_md
