@@ -220,7 +220,10 @@ def res_output_md(response,dir_str=None,file_name=None):
 
 ```py
 ## 生成コンテンツ出力（評価時に使用）
-common_func.res_output_md(response=final_summary,dir_str="data",file_name=f"test03-summary")
+common_func.res_output_md(response=final_summary,
+  dir_str="data",
+  file_name=f"test03-summary"
+)
 ```
 
 ## 要約と概要を生成時に発生したトークン量を確認
@@ -291,7 +294,7 @@ def calc_cost(input_tokens: int, output_tokens: int, model: str) -> dict:
   }
 def get_usd_to_jpy_yfinance() -> float:
   """
-  日米為替レート取得
+  ドル円為替レート取得
   """
   try:
     # yfinanceのモジュールを使用して為替データを取得
